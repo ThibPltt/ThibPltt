@@ -108,7 +108,7 @@ PROJECTS = [
                 "the team and built most of the AI (CNN, curriculum training in PyTorch).",
         result="Over 1,000 games, the AI scores 4.75× a random strategy on average.",
         tags=["AR", "Deep Reinforcement Learning", "Unity", "Python"],
-        cta="Repository", href="https://github.com/Lecureur-Arthur/Terrapolis_Python",
+        cta="Repository", href="https://github.com/ThibPltt/Terrapolis",
         alt="TerraPolis, 2025 to 2026: AR city simulation driven by Deep Reinforcement Learning. "
             "Python engine and Unity AR client.",
     ),
@@ -119,7 +119,7 @@ PROJECTS = [
                 "landings on the Moon, Mars and Earth, text and voice-over at each stop.",
         result="Complete game tested on Meta Quest 3; early version shown at ENSIM open days.",
         tags=["VR", "Unity", "C#", "Blender"],
-        cta="Repository", href="https://github.com/Lecureur-Arthur/SOLAS",
+        cta="Repository", href="https://github.com/ThibPltt/SOLAS",
         alt="SOLAS, 2024 to 2025: VR serious game about the solar system, Unity and C#, "
             "tested on Meta Quest 3.",
     ),
@@ -176,9 +176,21 @@ KIT_CARDS.update({
         cta="", href="", alt="Vert le Chemin: Android app estimating the CO2 of daily trips.",
     ),
 })
+KIT_CARDS.update({
+    "ActiveLearning": dict(
+        slug="activelearning", kind="rock", title="Active Learning · gaze tracking", dates="2026",
+        meta="deep learning · course project · ENSIM / Le Mans Université",
+        summary="Predicts where a person looks on screen from a webcam image (ResNet-18), and uses "
+                "active learning to choose which new images are worth labelling.",
+        result="With half of the new domain labelled, the mixed strategy reaches 67 px mean error, against 80 px at random.",
+        tags=["Python", "PyTorch", "ResNet-18", "Active learning"],
+        cta="", href="", alt="Active Learning: webcam gaze tracking with ResNet-18 and active learning.",
+    ),
+})
+
 KIT_REPOS = {"The-Undead-Clock": "the-undead-clock", "Mystic_MiniGolf_VR": "mystic-minigolf",
              "Terrapolis": "terrapolis", "Shepherding": "shepherding", "ARmageddon": "armageddon",
-             "Vert-le-chemin": "vert-le-chemin"}
+             "Vert-le-chemin": "vert-le-chemin", "SOLAS": "solas", "ActiveLearning": "activelearning"}
 
 SKILLS = [
     ("Engines & XR", ["Unreal Engine 5", "Blueprints", "Unity", "VR", "AR",

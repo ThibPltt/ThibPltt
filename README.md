@@ -21,11 +21,11 @@ I build virtual reality and simulation applications. At **CEA-List**, a French p
 <p><sub>▶ <a href="https://www.youtube.com/watch?v=AWou4s9IaSg">Project video</a> · <a href="https://www.youtube.com/watch?v=PMIZ1R9MNpg">Mechanical joints demo</a> · <a href="https://www.youtube.com/watch?v=etRPNNXaRo4">Starting locations and reassignment demo</a></sub></p>
 
 
-<a href="https://github.com/Lecureur-Arthur/Terrapolis_Python"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-terrapolis-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/card-terrapolis-light.svg"><img src="assets/card-terrapolis-light.svg" width="100%" alt="TerraPolis, 2025 to 2026: AR city simulation driven by Deep Reinforcement Learning. Project lead; built most of the AI (CNN, curriculum training in PyTorch). Over 1,000 games, the AI scores 4.75 times a random strategy."></picture></a>
+<a href="https://github.com/ThibPltt/Terrapolis"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-terrapolis-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/card-terrapolis-light.svg"><img src="assets/card-terrapolis-light.svg" width="100%" alt="TerraPolis, 2025 to 2026: AR city simulation driven by Deep Reinforcement Learning. Project lead; built most of the AI (CNN, curriculum training in PyTorch). Over 1,000 games, the AI scores 4.75 times a random strategy."></picture></a>
 <p><sub>▶ <a href="https://www.youtube.com/watch?v=86Q1wE_7Ecg">Project video</a> · <a href="https://www.youtube.com/watch?v=sdau2TpGC24">The AI plays a full game</a> · <a href="https://github.com/ThibPltt/Terrapolis">Project hub</a></sub></p>
 
 
-<a href="https://github.com/Lecureur-Arthur/SOLAS"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-solas-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/card-solas-light.svg"><img src="assets/card-solas-light.svg" width="100%" alt="SOLAS, 2024 to 2025: VR serious game about the solar system, Unity and C#, tested on Meta Quest 3."></picture></a>
+<a href="https://github.com/ThibPltt/SOLAS"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-solas-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/card-solas-light.svg"><img src="assets/card-solas-light.svg" width="100%" alt="SOLAS, 2024 to 2025: VR serious game about the solar system, Unity and C#, tested on Meta Quest 3."></picture></a>
 <p><sub>▶ <a href="https://www.youtube.com/watch?v=2curbw4u178">Gameplay video</a></sub></p>
 
 
@@ -40,6 +40,7 @@ I build virtual reality and simulation applications. At **CEA-List**, a French p
 <h3><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-more-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/h-more-light.svg"><img src="assets/h-more-light.svg" alt="More on GitHub"></picture></h3>
 
 - **[ARmageddon](https://github.com/ThibPltt/ARmageddon)** · AR battlefield sandbox for Android: scan the room, sculpt the terrain, place troops and buildings. *Unity, AR Foundation, C#.*
+- **[Active Learning](https://github.com/ThibPltt/ActiveLearning)** · Webcam gaze tracking with ResNet-18: active learning strategies compared to label as few new images as possible. *Python, PyTorch, Hugging Face Transformers.*
 - **[Shepherding](https://github.com/ThibPltt/Shepherding)** · Reinforcement learning on a herding task: PPO, DQN, SAC and TD3 against scripted baselines, with curriculum learning. *Python, PyTorch, Stable-Baselines3.*
 - **[Vert le Chemin](https://github.com/ThibPltt/-Vert-le-chemin)** · Android app that estimates the CO₂ of daily trips from ADEME data and suggests greener means of transport. *Kotlin, Jetpack Compose, Firebase.*
 
