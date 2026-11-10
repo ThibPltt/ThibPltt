@@ -148,7 +148,7 @@ PROJECTS = [
 KIT_CARDS = {
     "Shepherding": dict(
         slug="shepherding", kind="pasture", title="Shepherding", dates="2026",
-        meta="multi-agent reinforcement learning · course project · ENSIM / Le Mans Université",
+        meta="multi-agent reinforcement learning · solo course project · ENSIM / Le Mans Université",
         summary="A 2D continuous shepherding environment where an RL agent learns to herd sheep into "
                 "a goal area, around obstacles, through a curriculum of three levels.",
         result="PPO, DQN, SAC and TD3 compared with scripted baselines over 500 test episodes.",
@@ -175,19 +175,10 @@ KIT_CARDS.update({
         tags=["Android", "Kotlin", "Jetpack Compose", "Firebase"],
         cta="", href="", alt="Vert le Chemin: Android app estimating the CO2 of daily trips.",
     ),
-    "AtomicBombRadar": dict(
-        slug="atomicbombradar", kind="rock", title="AtomicBombRadar", dates="2024 – 2025",
-        meta="web app · DevOps course · ENSIM",
-        summary="Leaflet map of the blast radii of historical nuclear weapons, served by Express "
-                "and containerised with Docker and Nginx.",
-        result="Working web app with weapon selection and city search.",
-        tags=["Node.js", "Express", "Leaflet", "Docker", "Nginx"],
-        cta="", href="", alt="AtomicBombRadar: Leaflet map served by Node.js, Docker and Nginx.",
-    ),
 })
 KIT_REPOS = {"The-Undead-Clock": "the-undead-clock", "Mystic_MiniGolf_VR": "mystic-minigolf",
              "Terrapolis": "terrapolis", "Shepherding": "shepherding", "ARmageddon": "armageddon",
-             "Vert-le-chemin": "vert-le-chemin", "AtomicBombRadar": "atomicbombradar"}
+             "Vert-le-chemin": "vert-le-chemin"}
 
 SKILLS = [
     ("Engines & XR", ["Unreal Engine 5", "Blueprints", "Unity", "VR", "AR",
