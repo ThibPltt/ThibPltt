@@ -114,11 +114,11 @@ PROJECTS = [
     ),
     dict(
         slug="solas", kind="ice", title="SOLAS", dates="2024 – 2025",
-        meta="virtual reality serious game · project lead, team of 4 · ENSIM",
+        meta="virtual reality · project lead, team of 4 · ENSIM",
         summary="Teaches the solar system to young players: a planet-to-planet journey with "
                 "landings on the Moon, Mars and Earth, text and voice-over at each stop.",
-        result="Complete game tested on Meta Quest 3; early version shown at ENSIM open days.",
-        tags=["VR", "Unity", "C#", "Blender"],
+        result="Complete game tested on Meta Quest 3; a first version tried by visitors at the ENSIM open day.",
+        tags=["VR", "Unity", "C#", "XR Interaction Toolkit", "Blender"],
         cta="Repository", href="https://github.com/ThibPltt/SOLAS",
         alt="SOLAS, 2024 to 2025: VR serious game about the solar system, Unity and C#, "
             "tested on Meta Quest 3.",
@@ -139,7 +139,7 @@ PROJECTS = [
         summary="VR minigolf on an island of ancient temples, where an animated mascot "
                 "demonstrates the swing before you strike the ball, club in hand.",
         result="Two scenes and three courses, all playable to the end.",
-        tags=["VR", "Unity", "C#", "Blender"],
+        tags=["VR", "Unity", "C#", "XR Interaction Toolkit", "Blender"],
         cta="Repository", href="https://github.com/ThibPltt/Mystic_MiniGolf_VR",
         alt="Mystic Minigolf, 2024 to 2025: VR minigolf on a temple island, Unity and C#.",
     ),
@@ -158,33 +158,33 @@ KIT_CARDS = {
 }
 KIT_CARDS.update({
     "ARmageddon": dict(
-        slug="armageddon", kind="desert", title="ARmageddon", dates="2024 – 2025",
+        slug="armageddon", kind="desert", title="ARmageddon", dates="2025",
         meta="augmented reality · solo project · ENSIM",
-        summary="AR battle sandbox for Android: generate a terrain on the real floor, sculpt its "
-                "relief, then place troops and buildings on it.",
-        result="Terrain, relief editing, nature, buildings and soldiers working on Android.",
-        tags=["AR", "Unity", "C#", "AR Foundation"],
+        summary="Battlefield simulation in augmented reality on an Android phone: a terrain rises from "
+                "the detected floor, then takes soldiers and buildings.",
+        result="A prototype on a phone, shown on video: terrain, nature, soldiers and buildings placed with a tap.",
+        tags=["AR", "Unity", "C#", "AR Foundation", "Android"],
         cta="", href="", alt="ARmageddon: augmented reality battle sandbox.",
     ),
     "Vert-le-chemin": dict(
-        slug="vert-le-chemin", kind="forest", title="Vert le Chemin", dates="2024 – 2025",
-        meta="mobile app · course project · ENSIM",
-        summary="Android app that estimates the CO2 emissions of daily trips from ADEME data and suggests "
-                "greener means of transport.",
-        result="Specification, mock-ups and a Kotlin prototype with routing and navigation.",
-        tags=["Android", "Kotlin", "Jetpack Compose", "Firebase"],
+        slug="vert-le-chemin", kind="forest", title="Vert le Chemin", dates="2025",
+        meta="mobile app · solo project · ENSIM",
+        summary="Android app that estimates the CO2 of a daily trip and compares it with everyday "
+                "consumption, to encourage a less polluting means of transport.",
+        result="Specification, low-fi and high-fi mock-ups, and a Kotlin prototype up to the arrival screen.",
+        tags=["Android", "Kotlin", "Jetpack Compose", "Firebase", "Figma"],
         cta="", href="", alt="Vert le Chemin: Android app estimating the CO2 of daily trips.",
     ),
 })
 KIT_CARDS.update({
     "ActiveLearning": dict(
-        slug="activelearning", kind="rock", title="Active Learning · gaze tracking", dates="2026",
-        meta="deep learning · course project · ENSIM / Le Mans Université",
-        summary="Predicts where a person looks on screen from a webcam image (ResNet-18), and uses "
-                "active learning to choose which new images are worth labelling.",
-        result="With half of the new domain labelled, the mixed strategy reaches 67 px mean error, against 80 px at random.",
-        tags=["Python", "PyTorch", "ResNet-18", "Active learning"],
-        cta="", href="", alt="Active Learning: webcam gaze tracking with ResNet-18 and active learning.",
+        slug="activelearning", kind="rock", title="Active Learning · eye-tracking", dates="2026",
+        meta="active learning · personal study, data recorded as a team of 3 · ENSIM",
+        summary="Predicts where a person looks on the screen with a plain computer camera (ResNet-18), "
+                "choosing the images worth training on through active learning.",
+        result="Clustering L2 reaches the lowest error (MAE 0.0331 vs 0.0362), yet random selection wins almost every time.",
+        tags=["Active Learning", "Deep Learning", "ResNet-18", "Python", "PyTorch"],
+        cta="", href="", alt="Active Learning: eye-tracking prediction with a plain camera, ResNet-18 and active learning.",
     ),
 })
 

@@ -22,27 +22,27 @@ I build virtual reality and simulation applications. At **CEA-List**, a French p
 
 
 <a href="https://github.com/ThibPltt/Terrapolis"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-terrapolis-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/card-terrapolis-light.svg"><img src="assets/card-terrapolis-light.svg" width="100%" alt="TerraPolis, 2025 to 2026: AR city simulation driven by Deep Reinforcement Learning. Project lead; built most of the AI (CNN, curriculum training in PyTorch). Over 1,000 games, the AI scores 4.75 times a random strategy."></picture></a>
-<p><sub>▶ <a href="https://www.youtube.com/watch?v=86Q1wE_7Ecg">Project video</a> · <a href="https://www.youtube.com/watch?v=sdau2TpGC24">The AI plays a full game</a> · <a href="https://github.com/ThibPltt/Terrapolis">Project hub</a></sub></p>
+<p><sub>▶ <a href="https://www.youtube.com/watch?v=86Q1wE_7Ecg">Project video</a> · <a href="https://www.youtube.com/watch?v=sdau2TpGC24">The AI plays a full game</a> · <a href="https://thibautplatet.com/en/projects/terrapolis.html">Case study</a></sub></p>
 
 
 <a href="https://github.com/ThibPltt/SOLAS"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-solas-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/card-solas-light.svg"><img src="assets/card-solas-light.svg" width="100%" alt="SOLAS, 2024 to 2025: VR serious game about the solar system, Unity and C#, tested on Meta Quest 3."></picture></a>
-<p><sub>▶ <a href="https://www.youtube.com/watch?v=2curbw4u178">Gameplay video</a></sub></p>
+<p><sub>▶ <a href="https://www.youtube.com/watch?v=2curbw4u178">Gameplay video</a> · <a href="https://thibautplatet.com/en/projects/solas.html">Case study</a></sub></p>
 
 
 <a href="https://github.com/ThibPltt/The-Undead-Clock"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-the-undead-clock-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/card-the-undead-clock-light.svg"><img src="assets/card-the-undead-clock-light.svg" width="100%" alt="The Undead Clock, 2025 to 2026: Unreal Engine 5 survival game built entirely in Blueprints. Nine waves, five doors and a final keypad puzzle."></picture></a>
-<p><sub>▶ <a href="https://www.youtube.com/watch?v=hAo6v7G74Nc">Gameplay video</a></sub></p>
+<p><sub>▶ <a href="https://www.youtube.com/watch?v=hAo6v7G74Nc">Gameplay video</a> · <a href="https://thibautplatet.com/en/projects/the-undead-clock.html">Case study</a></sub></p>
 
 
 <a href="https://github.com/ThibPltt/Mystic_MiniGolf_VR"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-mystic-minigolf-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/card-mystic-minigolf-light.svg"><img src="assets/card-mystic-minigolf-light.svg" width="100%" alt="Mystic Minigolf, 2024 to 2025: VR minigolf on a temple island, Unity and C#, built as a pair."></picture></a>
-<p><sub>▶ <a href="https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest">Download v1.0 (PC VR build)</a></sub></p>
+<p><sub>▶ <a href="https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest">Download v1.0 (PC VR build)</a> · <a href="https://thibautplatet.com/en/projects/mystic-minigolf.html">Case study</a></sub></p>
 
 
 <h3><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-more-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/h-more-light.svg"><img src="assets/h-more-light.svg" alt="More on GitHub"></picture></h3>
 
-- **[ARmageddon](https://github.com/ThibPltt/ARmageddon)** · AR battlefield sandbox for Android: scan the room, sculpt the terrain, place troops and buildings. *Unity, AR Foundation, C#.*
-- **[Active Learning](https://github.com/ThibPltt/ActiveLearning)** · Webcam gaze tracking with ResNet-18: active learning strategies compared to label as few new images as possible. *Python, PyTorch, Hugging Face Transformers.*
+- **[Active Learning · eye-tracking](https://github.com/ThibPltt/ActiveLearning)** · Predicting where a person looks on the screen with a plain computer camera, choosing the images worth training on through active learning. *Python, PyTorch, ResNet-18.* · [Case study](https://thibautplatet.com/en/projects/active-learning.html)
+- **[Vert le Chemin](https://github.com/ThibPltt/-Vert-le-chemin)** · Android app that estimates the CO₂ of a daily trip, to encourage choosing a less polluting means of transport. *Kotlin, Jetpack Compose, Firebase, Figma.* · [Case study](https://thibautplatet.com/en/projects/vert-le-chemin.html) · [▶ Mock-up video](https://www.youtube.com/watch?v=6KR983nNHtM)
+- **[ARmageddon](https://github.com/ThibPltt/ARmageddon)** · Battlefield simulation in augmented reality on an Android phone, built with Unity. *Unity, C#, AR Foundation.* · [Case study](https://thibautplatet.com/en/projects/armageddon.html) · [▶ Demo video](https://www.youtube.com/watch?v=-H1b89DvUtM)
 - **[Shepherding](https://github.com/ThibPltt/Shepherding)** · Reinforcement learning on a herding task: PPO, DQN, SAC and TD3 against scripted baselines, with curriculum learning. *Python, PyTorch, Stable-Baselines3.*
-- **[Vert le Chemin](https://github.com/ThibPltt/-Vert-le-chemin)** · Android app that estimates the CO₂ of daily trips from ADEME data and suggests greener means of transport. *Kotlin, Jetpack Compose, Firebase.*
 
 <h3><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-skills-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/h-skills-light.svg"><img src="assets/h-skills-light.svg" alt="Skills"></picture></h3>
 
