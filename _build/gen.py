@@ -76,14 +76,20 @@ BANNER = dict(
     avail_line2="Based in Paris, open to relocation in France and abroad.",
     url="thibautplatet.com",
 )
-# orrery: same planets, order, sizes and starting angles as the site (inner = oldest)
+# orrery: same bodies, orbits, sizes, textures, start angles and moons as the site (assets/js/orrery.js);
+# periods are the site's divided by TIME_SCALE so that the banner moves at a readable pace
+TIME_SCALE = 2.35
+SIZE = {"s": 7, "m": 8.5, "l": 10.5, "xl": 13}        # site BODY_SIZE, % of the stage
+SUN_SIZE, MOON_SIZE, MOON_GAP, MOON_PERIOD, MOON_SPIN = 15, 4.5, 4, 28, 40
 ORRERY = [
-    # label,          kind,    orbit rx, radius, angle0, period (s)
-    ("Bilan Carbone", "rock", 76, 11.5, 252.6, 34),
-    ("ENEDIS", "rust", 116, 13.0, 358.2, 48),
-    ("SOLAS", "ice", 156, 16.0, 278.0, 64),
-    ("TerraPolis", "terra", 196, 16.0, 51.0, 84),
-    ("CEA-List", "gas", 238, 19.5, 90.0, 112),
+    # label,          texture, orbit, size, start, period (s), spin (s), moons (label, texture) in site slot order
+    ("Bilan Carbone", "rock", 1, "s", 190, 80, 34, []),
+    ("ENEDIS", "rust", 2, "m", 320, 110, 46, []),
+    ("SOLAS", "ice", 3, "l", 180, 150, 38,
+     [("Mystic Minigolf", "moon-mint"), ("ARmageddon", "moon-ember"), ("Vert le Chemin", "moon-mint")]),
+    ("TerraPolis", "terra", 4, "l", 0, 200, 30,
+     [("The Undead Clock", "moon-ember"), ("Eye-Tracking", "moon-mint")]),
+    ("CEA-List", "gas", 5, "xl", 50, 260, 24, []),
 ]
 SELECTED = "CEA-List"
 
@@ -218,7 +224,7 @@ BACKGROUND = [
          "Lycée Henri IV, Béziers", ""),
     ]),
 ]
-HEADERS = {"profile": "Profile", "work": "Featured work", "more": "More on GitHub",
+HEADERS = {"profile": "Profile", "work": "Featured work", "more": "More projects",
            "skills": "Skills", "background": "Background"}
 BUTTONS = [("cv", "CV (PDF)", True), ("portfolio", "Portfolio", False),
            ("linkedin", "LinkedIn", False), ("email", "contact@thibautplatet.com", False)]
@@ -450,14 +456,214 @@ def arrow(x, y, color, size=10, w=1.8):
             f'stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"/>')
 
 
+# ---------------------------------------------------------------- orrery (banner)
+TEX_DIR = os.path.join(HERE, "textures")
+
+
+def orrery(svg, cx, cy):
+    """The site's orrery, flattened: textured spinning bodies lit by the sun, moons, rods, gas rings."""
+    k, prx = 0.33, 262                       # plate squash and radius
+    U_ORBIT, U_SIZE = 5.53, 3.6              # px per % of stage: orbits, bodies (bodies smaller than on the site)
+    r_in, r_out = 13, 43                     # site INNER_RADIUS / OUTER_RADIUS
+    N, NM = 72, 48                           # keyframes per revolution: planets, moons
+    ky_moon = 0.76                           # moon ring lean: passes above its planet at the back, below at the front
+    max_orbit = max(p[2] for p in ORRERY)
+    orbit_rx = lambda o: U_ORBIT * (r_in + (r_out - r_in) * (o - 1) / (max_orbit - 1))
+    css, g = [], []
+
+    # textures: one 2:1 image each, used twice side by side and slid past a disc = the body spinning
+    used = {p[1] for p in ORRERY} | {m[1] for p in ORRERY for m in p[7]} | {"sun"}
+    for t in sorted(used):
+        with open(os.path.join(TEX_DIR, f"{t}.webp"), "rb") as fh:
+            data = base64.b64encode(fh.read()).decode()
+        svg.defs.append(f'<image id="tx-{t}" width="2" height="1" preserveAspectRatio="none" '
+                        f'href="data:image/webp;base64,{data}"/>')
+    # sphere shading (site: radial-gradient at 82% 50%, turned towards the sun) and rim darkening
+    svg.defs.append('<radialGradient id="shade" cx="0.82" cy="0.5" r="0.96">'
+                    '<stop offset="0.2" stop-color="#02030a" stop-opacity="0"/>'
+                    '<stop offset="0.56" stop-color="#02030a" stop-opacity="0.5"/>'
+                    '<stop offset="0.92" stop-color="#02030a" stop-opacity="0.94"/></radialGradient>')
+    svg.defs.append('<radialGradient id="rim" r="0.5"><stop offset="0.8" stop-color="#02030a" stop-opacity="0"/>'
+                    '<stop offset="1" stop-color="#02030a" stop-opacity="0.6"/></radialGradient>')
+    # gas-giant rings: translucent bands between 1.28 r and 1.85 r (site ringTexture)
+    stops = "".join(f'<stop offset="{0.69 + 0.31 * o:.3f}" stop-color="rgb(214,204,240)" stop-opacity="{a}"/>'
+                    for o, a in [(0, 0), (0.06, 0.55), (0.3, 0.2), (0.36, 0.6), (0.62, 0.35), (0.7, 0.05),
+                                 (0.78, 0.4), (1, 0)])
+    svg.defs.append(f'<radialGradient id="ringband" r="0.5"><stop offset="0.69" stop-color="rgb(214,204,240)" '
+                    f'stop-opacity="0"/>{stops}</radialGradient>')
+    svg.defs.append('<radialGradient id="sunglow" r="0.5"><stop offset="0.3" stop-color="#ff96aa" stop-opacity="0.55"/>'
+                    '<stop offset="1" stop-color="#ff96aa" stop-opacity="0"/></radialGradient>')
+    svg.defs.append('<filter id="tpshadow" x="-50%" y="-50%" width="200%" height="200%">'
+                    '<feDropShadow dx="0" dy="0" stdDeviation="2.2" flood-color="#5a0f32" flood-opacity="0.9"/></filter>')
+    clips, spins = {}, {}
+
+    def body(texture, r, spin, light_anim=None, sun=False):
+        rk = f"{r:.2f}"
+        if rk not in clips:
+            clips[rk] = svg.uid("c")
+            svg.defs.append(f'<clipPath id="{clips[rk]}"><circle r="{r:.2f}"/></clipPath>')
+        key = (rk, spin)
+        if key not in spins:
+            spins[key] = svg.uid("sp")
+            css.append(f"@keyframes {spins[key]}{{to{{transform:translateX({-4 * r:.2f}px)}}}}")
+        tile = (f'<use href="#tx-{texture}" transform="translate({-r:.2f} {-r:.2f}) scale({2 * r:.2f})"/>'
+                f'<use href="#tx-{texture}" transform="translate({3 * r:.2f} {-r:.2f}) scale({2 * r:.2f})"/>')
+        out = (f'<g clip-path="url(#{clips[rk]})"><g class="mv" style="animation:{spins[key]} {spin}s linear infinite">'
+               f'{tile}</g>')
+        if not sun:
+            out += (f'<g class="mv" style="animation:{light_anim}"><circle r="{r:.2f}" fill="url(#shade)"/></g>'
+                    f'<circle r="{r:.2f}" fill="url(#rim)"/>')
+        return out + "</g>"
+
+    def unwrap(seq):
+        out = [seq[0]]
+        for v in seq[1:]:
+            while v - out[-1] > 180:
+                v -= 360
+            while v - out[-1] < -180:
+                v += 360
+            out.append(v)
+        return out
+
+    # stand: column, foot, plate, grooves, orbit rings
+    g.append(f'<rect x="{cx - 20}" y="{cy + 60}" width="40" height="{388 - cy - 60}" fill="url(#col)"/>')
+    g.append(f'<ellipse cx="{cx}" cy="392" rx="96" ry="22" fill="{SPACE["under"]}" stroke="{SPACE["under_edge"]}" stroke-width="2"/>')
+    g.append(f'<ellipse cx="{cx}" cy="386" rx="96" ry="22" fill="url(#base)" stroke="{SPACE["plate_edge"]}" stroke-width="2.5"/>')
+    g.append(f'<ellipse cx="{cx}" cy="{cy + 14}" rx="{prx}" ry="{prx * k:.1f}" fill="{SPACE["under"]}" stroke="{SPACE["under_edge"]}" stroke-width="2"/>')
+    g.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{prx}" ry="{prx * k:.1f}" fill="url(#plate)" stroke="{SPACE["plate_edge"]}" stroke-width="3"/>')
+    for rr in range(14, prx - 6, 9):
+        g.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{rr}" ry="{rr * k:.1f}" fill="none" stroke="#fff" stroke-opacity="0.035"/>')
+    for p in ORRERY:
+        orx = orbit_rx(p[2])
+        g.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{orx:.1f}" ry="{orx * k:.1f}" fill="none" stroke="{SPACE["border"]}" '
+                 'stroke-opacity="0.7" stroke-width="2" stroke-dasharray="0.1 7" stroke-linecap="round"/>')
+    # reading position marker at the front of the plate (site: pink triangle)
+    fy = cy + prx * k + 10
+    g.append(f'<path d="M {cx} {fy - 9} L {cx + 8} {fy + 3} L {cx - 8} {fy + 3} Z" fill="{SPACE["highlight"]}"/>')
+
+    def label_markup(name, r, selected):
+        lw = FONTS.width(name, (MONO, 400), 12.5) + 14
+        col = SPACE["highlight"] if selected else SPACE["text"]
+        y = -r - 12
+        return (f'<rect x="{-lw / 2:.1f}" y="{y - 13:.1f}" width="{lw:.1f}" height="19" rx="4" fill="{SPACE["label_bg"]}"/>'
+                + svg.t(0, y + 1, name, MONO, 400, 12.5, col, "middle"))
+
+    rods, backs, fronts = [], [], []
+    moon_r = MOON_SIZE / 2 * U_SIZE
+    for idx, (name, texture, orbit, size, a0, period_site, spin, moons) in enumerate(ORRERY):
+        period = round(period_site / TIME_SCALE, 1)
+        orx = orbit_rx(orbit)
+        ory = orx * k
+        r = SIZE[size] / 2 * U_SIZE
+        pos, light, rod_a, rod_l = [], [], [], []
+        for i in range(N + 1):
+            th = math.radians(a0 + 360 * i / N)
+            dx, dy = orx * math.cos(th), ory * math.sin(th)
+            pos.append((cx + dx, cy + dy, 1 + 0.12 * math.sin(th)))
+            light.append(math.degrees(math.atan2(-dy, -dx)))
+            rod_a.append(math.degrees(math.atan2(dy, dx)))
+            rod_l.append(math.hypot(dx, dy))
+        light, rod_a = unwrap(light), unwrap(rod_a)
+        pct = lambda i: f"{100 * i / N:.3f}%"
+        css.append(f"@keyframes m{idx}{{" + "".join(
+            f"{pct(i)}{{transform:translate({x:.2f}px,{y:.2f}px) scale({sc:.3f})}}" for i, (x, y, sc) in enumerate(pos)) + "}")
+        css.append(f"@keyframes l{idx}{{" + "".join(
+            f"{pct(i)}{{transform:rotate({a:.2f}deg)}}" for i, a in enumerate(light)) + "}")
+        css.append(f"@keyframes r{idx}{{" + "".join(
+            f"{pct(i)}{{transform:rotate({a:.2f}deg) scaleX({ln:.2f})}}" for i, (a, ln) in enumerate(zip(rod_a, rod_l))) + "}")
+        # rod from the centre of the stand to the planet
+        rods.append(f'<g transform="translate({cx} {cy})"><line class="mv" x1="0" y1="0" x2="1" y2="0" '
+                    f'stroke="{SPACE["border"]}" stroke-opacity="0.75" stroke-width="2" vector-effect="non-scaling-stroke" '
+                    f'transform="rotate({rod_a[0]:.2f}) scale({rod_l[0]:.2f} 1)" '
+                    f'style="animation:r{idx} {period}s linear infinite"/></g>')
+        light_anim = f"l{idx} {period}s linear infinite"
+
+        # front/back copies: in front of the sun while sin(theta) >= 0
+        def frac(target):
+            return ((target - a0) % 360) / 360 * 100
+        f0, f180 = frac(360), frac(180)
+        eps = 0.01
+
+        def opacity_kf(name_, front):
+            pts = []
+            th0 = math.sin(math.radians(a0))
+            val = 1 if (th0 >= 0) == front else 0
+            pts.append(f"0%{{opacity:{val}}}")
+            for fcut, kind_ in sorted([(f0, "to_front"), (f180, "to_back")]):
+                pts.append(f"{fcut:.3f}%{{opacity:{val}}}")
+                val = (1 if front else 0) if kind_ == "to_front" else (0 if front else 1)
+                pts.append(f"{min(fcut + eps, 100):.3f}%{{opacity:{val}}}")
+            pts.append(f"100%{{opacity:{val}}}")
+            return f"@keyframes {name_}{{{''.join(pts)}}}"
+        css.append(opacity_kf(f"of{idx}", True))
+        css.append(opacity_kf(f"ob{idx}", False))
+
+        # moons: evenly spaced on a leaning ring, same speed, starting in the site's slots
+        moon_parts = []
+        mr = (SIZE[size] / 2 + MOON_SIZE / 2 + MOON_GAP) * U_SIZE
+        mper = round(MOON_PERIOD / TIME_SCALE, 1)
+        for j, (mname, mtex) in enumerate(moons):
+            slot = (270 + (j + 0.5) * 360 / len(moons)) % 360
+            fr, rodf = [], []
+            angs, lens = [], []
+            for i in range(NM + 1):
+                ph = math.radians(slot + 360 * i / NM)
+                mx, my = mr * math.cos(ph), mr * ky_moon * math.sin(ph)
+                fr.append((mx, my))
+                angs.append(math.degrees(math.atan2(my, mx)))
+                lens.append(math.hypot(mx, my))
+            angs = unwrap(angs)
+            mp = lambda i: f"{100 * i / NM:.3f}%"
+            css.append(f"@keyframes mo{idx}_{j}{{" + "".join(
+                f"{mp(i)}{{transform:translate({x:.2f}px,{y:.2f}px)}}" for i, (x, y) in enumerate(fr)) + "}")
+            css.append(f"@keyframes mr{idx}_{j}{{" + "".join(
+                f"{mp(i)}{{transform:rotate({a:.2f}deg) scaleX({ln:.2f})}}" for i, (a, ln) in enumerate(zip(angs, lens))) + "}")
+            moon_parts.append(
+                (f'<line class="mv" x1="0" y1="0" x2="1" y2="0" stroke="{SPACE["border"]}" stroke-opacity="0.6" '
+                 f'stroke-width="1.4" vector-effect="non-scaling-stroke" '
+                 f'transform="rotate({angs[0]:.2f}) scale({lens[0]:.2f} 1)" style="animation:mr{idx}_{j} {mper}s linear infinite"/>',
+                 f'<g class="mv" transform="translate({fr[0][0]:.2f} {fr[0][1]:.2f})" '
+                 f'style="animation:mo{idx}_{j} {mper}s linear infinite">'
+                 + body(mtex, moon_r, MOON_SPIN, light_anim) + "</g>"))
+
+        selected = name == SELECTED
+        ring_back = ring_front = ""
+        if texture == "gas":
+            rid = svg.uid("rf")
+            svg.defs.append(f'<clipPath id="{rid}"><rect x="{-2 * r:.1f}" y="0" width="{4 * r:.1f}" height="{2 * r:.1f}"/></clipPath>')
+            ell = f'<ellipse rx="{1.85 * r:.2f}" ry="{1.85 * r * 0.37:.2f}" fill="url(#ringband)"/>'
+            ring_back = f'<g transform="rotate(-9)">{ell}</g>'
+            ring_front = f'<g transform="rotate(-9)"><g clip-path="url(#{rid})">{ell}</g></g>'
+        sel = (f'<circle r="{r + 5:.1f}" fill="none" stroke="#ffffff" stroke-width="2.2"/>' if selected else "")
+        inner = ("".join(m[0] for m in moon_parts) + ring_back + body(texture, r, spin, light_anim) + ring_front
+                 + "".join(m[1] for m in moon_parts) + sel + label_markup(name, r, selected))
+        x0, y0, s0 = pos[0]
+        is_front = math.sin(math.radians(a0)) >= 0
+        for copy, lst, an in (("f", fronts, f"of{idx}"), ("b", backs, f"ob{idx}")):
+            vis = 1 if (copy == "f") == is_front else 0
+            lst.append(f'<g class="mv" transform="translate({x0:.2f} {y0:.2f}) scale({s0:.3f})" opacity="{vis}" '
+                       f'style="animation:m{idx} {period}s linear infinite,{an} {period}s linear infinite">{inner}</g>')
+
+    svg.css.extend(css)
+    svg.css.append("@media (prefers-reduced-motion: reduce){.mv,.tw{animation:none!important}}")
+    g.extend(rods)
+    g.extend(reversed(backs))  # farthest (outer) first
+    sr = SUN_SIZE / 2 * U_SIZE
+    g.append(f'<circle cx="{cx}" cy="{cy}" r="{sr * 2.1:.1f}" fill="url(#sunglow)"/>')
+    g.append(f'<g transform="translate({cx} {cy})">' + body("sun", sr, 60, sun=True) + "</g>")
+    g.append(svg.t(cx, cy + 7.5, "TP", HEAD, 600, 21, "#ffffff", "middle", extra=' filter="url(#tpshadow)"'))
+    g.extend(fronts)
+    return g
+
+
 # ---------------------------------------------------------------- banner
 def banner():
     W, H = 1280, 440
     svg = SVG(W, H, f"{BANNER['name']} — {BANNER['title']}",
               f"{BANNER['stack']}. {BANNER['avail_strong']}{BANNER['avail_rest']} {BANNER['avail_line2']} "
-              "An animated orrery shows experience and projects as planets: "
-              + ", ".join(p[0] for p in ORRERY) + ".")
-    planet_defs(svg, {p[1] for p in ORRERY})
+              "An animated orrery, as on the portfolio, shows experience and projects as planets and moons: "
+              + "; ".join(p[0] + (" (moons: " + ", ".join(m[0] for m in p[7]) + ")" if p[7] else "")
+                          for p in ORRERY) + ".")
     svg.defs.append(f'<clipPath id="frame"><rect width="{W}" height="{H}" rx="18"/></clipPath>')
     svg.defs.append('<radialGradient id="glowb" r="0.5"><stop offset="0" stop-color="#787eff" stop-opacity="0.22"/>'
                     '<stop offset="1" stop-color="#787eff" stop-opacity="0"/></radialGradient>')
@@ -469,11 +675,6 @@ def banner():
                     '<stop offset="0.6" stop-color="#101228"/><stop offset="1" stop-color="#1b1e3c"/></radialGradient>')
     svg.defs.append('<linearGradient id="col" x1="0" x2="1"><stop offset="0" stop-color="#151834"/>'
                     '<stop offset="0.45" stop-color="#3a3f74"/><stop offset="1" stop-color="#121430"/></linearGradient>')
-    svg.defs.append('<radialGradient id="sun" cx="0.42" cy="0.38" r="0.62"><stop offset="0" stop-color="#fff3dc"/>'
-                    '<stop offset="0.35" stop-color="#ffc39a"/><stop offset="0.72" stop-color="#f4878d"/>'
-                    '<stop offset="1" stop-color="#d44b78"/></radialGradient>')
-    svg.defs.append('<radialGradient id="sunglow" r="0.5"><stop offset="0.3" stop-color="#f08296" stop-opacity="0.5"/>'
-                    '<stop offset="1" stop-color="#f08296" stop-opacity="0"/></radialGradient>')
     svg.css.append(".tw{animation:tw 4s ease-in-out infinite}"
                    "@keyframes tw{0%,100%{opacity:.15}50%{opacity:1}}")
 
@@ -499,74 +700,7 @@ def banner():
     g.append(svg.t(x + 16, 391, BANNER["url"], MONO, 400, 17, SPACE["text"]))
     g.append(arrow(x + uw - 30, 380, SITE_PINK, 10, 2.2))
 
-    # orrery
-    cx, cy, k = 996, 196, 0.33
-    prx = 262
-    g.append(f'<rect x="{cx - 20}" y="{cy + 60}" width="40" height="{388 - cy - 60}" fill="url(#col)"/>')
-    g.append(f'<ellipse cx="{cx}" cy="392" rx="96" ry="22" fill="{SPACE["under"]}" stroke="{SPACE["under_edge"]}" stroke-width="2"/>')
-    g.append(f'<ellipse cx="{cx}" cy="386" rx="96" ry="22" fill="url(#base)" stroke="{SPACE["plate_edge"]}" stroke-width="2.5"/>')
-    g.append(f'<ellipse cx="{cx}" cy="{cy + 14}" rx="{prx}" ry="{prx * k:.1f}" fill="{SPACE["under"]}" stroke="{SPACE["under_edge"]}" stroke-width="2"/>')
-    g.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{prx}" ry="{prx * k:.1f}" fill="url(#plate)" stroke="{SPACE["plate_edge"]}" stroke-width="3"/>')
-    for rr in range(14, prx - 6, 9):
-        g.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{rr}" ry="{rr * k:.1f}" fill="none" stroke="#fff" stroke-opacity="0.035"/>')
-    for (_, _, orx, *_rest) in ORRERY:
-        g.append(f'<ellipse cx="{cx}" cy="{cy}" rx="{orx}" ry="{orx * k:.1f}" fill="none" stroke="{SPACE["border"]}" '
-                 'stroke-opacity="0.7" stroke-width="2" stroke-dasharray="0.1 7" stroke-linecap="round"/>')
-
-    def label_markup(name, r, selected):
-        lw = FONTS.width(name, (MONO, 400), 12.5) + 14
-        col = SPACE["highlight"] if selected else SPACE["text"]
-        y = -r - 12 - (8 if name == "CEA-List" else 0)
-        return (f'<rect x="{-lw / 2:.1f}" y="{y - 13:.1f}" width="{lw:.1f}" height="19" rx="4" fill="{SPACE["label_bg"]}"/>'
-                + svg.t(0, y + 1, name, MONO, 400, 12.5, col, "middle"))
-
-    backs, fronts, css = [], [], []
-    N = 72
-    for idx, (name, kind, orx, r, a0, period) in enumerate(ORRERY):
-        ory = orx * k
-        frames = []
-        for i in range(N + 1):
-            th = math.radians(a0 + 360 * i / N)
-            px, py, s = cx + orx * math.cos(th), cy + ory * math.sin(th), 1 + 0.12 * math.sin(th)
-            frames.append(f"{100 * i / N:.3f}%{{transform:translate({px:.2f}px,{py:.2f}px) scale({s:.3f})}}")
-        css.append(f"@keyframes m{idx}{{{''.join(frames)}}}")
-        # front copy visible while sin(theta) >= 0 ; crossing angles 0 and 180 degrees
-        def frac(target):
-            return ((target - a0) % 360) / 360 * 100
-        f0, f180 = frac(360), frac(180)  # front -> back at 360/0, back -> front at 180
-        eps = 0.01
-        def opacity_kf(name_, front):
-            pts = []
-            th0 = math.sin(math.radians(a0))
-            start = 1 if (th0 >= 0) == front else 0
-            cuts = sorted([(f0, "to_back"), (f180, "to_front")])
-            val = start
-            pts.append(f"0%{{opacity:{val}}}")
-            for fcut, kind_ in cuts:
-                pts.append(f"{fcut:.3f}%{{opacity:{val}}}")
-                val = (1 if front else 0) if kind_ == "to_front" else (0 if front else 1)
-                pts.append(f"{min(fcut + eps, 100):.3f}%{{opacity:{val}}}")
-            pts.append(f"100%{{opacity:{val}}}")
-            return f"@keyframes {name_}{{{''.join(pts)}}}"
-        css.append(opacity_kf(f"of{idx}", True))
-        css.append(opacity_kf(f"ob{idx}", False))
-        th = math.radians(a0)
-        px, py, s = cx + orx * math.cos(th), cy + ory * math.sin(th), 1 + 0.12 * math.sin(th)
-        selected = name == SELECTED
-        sel = (f'<circle r="{r + 5}" fill="none" stroke="#ffffff" stroke-width="2.2"/>' if selected else "")
-        inner = planet(kind, r) + sel + label_markup(name, r, selected)
-        is_front = math.sin(th) >= 0
-        for copy, lst, an in (("f", fronts, f"of{idx}"), ("b", backs, f"ob{idx}")):
-            vis = 1 if (copy == "f") == is_front else 0
-            lst.append(f'<g class="orb" transform="translate({px:.2f} {py:.2f}) scale({s:.3f})" opacity="{vis}" '
-                       f'style="animation:m{idx} {period}s linear infinite,{an} {period}s linear infinite">{inner}</g>')
-    svg.css.extend(css)
-    svg.css.append("@media (prefers-reduced-motion: reduce){.orb,.tw{animation:none!important}}")
-    g.extend(reversed(backs))  # farthest (outer) first
-    g.append(f'<circle cx="{cx}" cy="{cy}" r="66" fill="url(#sunglow)"/>')
-    g.append(f'<circle cx="{cx}" cy="{cy}" r="33" fill="url(#sun)"/>')
-    g.append(svg.t(cx, cy + 8.5, "TP", HEAD, 600, 23, "#ffffff", "middle"))
-    g.extend(fronts)
+    g.extend(orrery(svg, 996, 196))
     g.append("</g>")
     svg.add(*g)
     return svg.render(width_attr=False)

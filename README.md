@@ -1,5 +1,5 @@
 <a href="https://thibautplatet.com/en/">
-  <img src="assets/banner.svg" width="100%" alt="Thibaut Platet — XR &amp; Simulation Software Engineer. Unreal Engine 5 / C++ · Unity / C# · VR / AR · AI. Available immediately for permanent or fixed-term roles. Based in Paris, open to relocation in France and abroad.">
+  <img src="assets/banner.svg" width="100%" alt="Thibaut Platet — XR &amp; Simulation Software Engineer. Unreal Engine 5 / C++ · Unity / C# · VR / AR · AI. Available immediately for permanent or fixed-term roles. Based in Paris, open to relocation in France and abroad. An animated orrery, as on the portfolio, shows the experience and projects as planets and moons.">
 </a>
 
 <p>
@@ -37,12 +37,13 @@ I build virtual reality and simulation applications. At **CEA-List**, a French p
 <p><sub>▶ <a href="https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest">Download v1.0 (PC VR build)</a> · <a href="https://thibautplatet.com/en/projects/mystic-minigolf.html">Case study</a></sub></p>
 
 
-<h3><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-more-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/h-more-light.svg"><img src="assets/h-more-light.svg" alt="More on GitHub"></picture></h3>
+<h3><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-more-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/h-more-light.svg"><img src="assets/h-more-light.svg" alt="More projects"></picture></h3>
 
 - **[Active Learning · eye-tracking](https://github.com/ThibPltt/ActiveLearning)** · Predicting where a person looks on the screen with a plain computer camera, choosing the images worth training on through active learning. *Python, PyTorch, ResNet-18.* · [Case study](https://thibautplatet.com/en/projects/active-learning.html)
 - **[Vert le Chemin](https://github.com/ThibPltt/-Vert-le-chemin)** · Android app that estimates the CO₂ of a daily trip, to encourage choosing a less polluting means of transport. *Kotlin, Jetpack Compose, Firebase, Figma.* · [Case study](https://thibautplatet.com/en/projects/vert-le-chemin.html) · [▶ Mock-up video](https://www.youtube.com/watch?v=6KR983nNHtM)
 - **[ARmageddon](https://github.com/ThibPltt/ARmageddon)** · Battlefield simulation in augmented reality on an Android phone, built with Unity. *Unity, C#, AR Foundation.* · [Case study](https://thibautplatet.com/en/projects/armageddon.html) · [▶ Demo video](https://www.youtube.com/watch?v=-H1b89DvUtM)
 - **[Shepherding](https://github.com/ThibPltt/Shepherding)** · Reinforcement learning on a herding task: PPO, DQN, SAC and TD3 against scripted baselines, with curriculum learning. *Python, PyTorch, Stable-Baselines3.*
+- **[ENSIM 2023 Carbon Footprint Assessment](https://thibautplatet.com/en/projects/bilan-carbone.html)** · Greenhouse gas emissions of the school over 2023, following ADEME criteria: project lead, team of 3. GHG Protocol in three scopes, survey and interviews, an uncertainty for every item; a full report and awareness posters. *GHG Protocol, Excel, ADEME data.*
 
 <h3><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-skills-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/h-skills-light.svg"><img src="assets/h-skills-light.svg" alt="Skills"></picture></h3>
 
@@ -52,7 +53,10 @@ I build virtual reality and simulation applications. At **CEA-List**, a French p
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/background-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/background-light.svg"><img src="assets/background-light.svg" width="100%" alt="Experience: R&amp;D Engineering Intern, Virtual Reality and Physics Simulation, at CEA-List, Interactive Simulation Laboratory, Palaiseau (Mar 2026 to Aug 2026); GIS Intern at ENEDIS, Languedoc-Roussillon Mapping Department, Montpellier (Jun 2024 to Aug 2024). Education: Master's-level Engineering Degree in Computer Science, HCI specialization, ENSIM Le Mans (2023 to 2026); Bachelor's Degree in Geography and Spatial Planning, Le Mans University (2023 to 2024); Preparatory Classes (CPGE B/L) in literature and social sciences, Lycée Henri IV, Béziers (2021 to 2023)."></picture>
 
-**Languages:** French (native) · English B2 (TOEIC 815/990)
+**Languages:** French (native) · English B2 (TOEIC 815/990)  
+**Abroad:** 3-month volunteering on a farm in the United Kingdom (2025) · Model United Nations in Germany (2024)  
+**Other:** store associate at LIDL (summer 2023) · member of the Laurens blood donors’ association (EFS) since 2022  
+**Interests:** Virtual and Augmented Reality, XR simulations, Artificial Intelligence, social sciences · EU driver’s license
 
 ---
 
