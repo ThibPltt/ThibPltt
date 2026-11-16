@@ -34,7 +34,7 @@ I build virtual reality and simulation applications. At **CEA-List**, a French p
 
 
 <a href="https://github.com/ThibPltt/Mystic_MiniGolf_VR"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-mystic-minigolf-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/card-mystic-minigolf-light.svg"><img src="assets/card-mystic-minigolf-light.svg" width="100%" alt="Mystic Minigolf, 2024 to 2025: VR minigolf on a temple island, Unity and C#, built as a pair."></picture></a>
-<p><sub>▶ <a href="https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest">Download v2.0 (PC VR build)</a> <a href="https://www.youtube.com/watch?v=N9Fd4-CqHVY">Gameplay video</a>· <a href="https://thibautplatet.com/en/projects/mystic-minigolf.html">Case study</a></sub></p>
+<p><sub>▶ <a href="https://github.com/ThibPltt/Mystic_MiniGolf_VR/releases/latest">Download v2.0 (PC VR build)</a> · <a href="https://www.youtube.com/watch?v=N9Fd4-CqHVY">Gameplay video</a> · <a href="https://thibautplatet.com/en/projects/mystic-minigolf.html">Case study</a></sub></p>
 
 
 <h3><picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-more-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/h-more-light.svg"><img src="assets/h-more-light.svg" alt="More projects"></picture></h3>
