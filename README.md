@@ -22,7 +22,7 @@ I build virtual reality and simulation applications. At **CEA-List**, a French p
 
 
 <a href="https://github.com/ThibPltt/Terrapolis"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-terrapolis-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/card-terrapolis-light.svg"><img src="assets/card-terrapolis-light.svg" width="100%" alt="TerraPolis, 2025 to 2026: AR city simulation driven by Deep Reinforcement Learning. Project lead; built most of the AI (CNN, curriculum training in PyTorch). Over 1,000 games, the AI scores 4.75 times a random strategy."></picture></a>
-<p><sub>▶ <a href="https://www.youtube.com/watch?v=86Q1wE_7Ecg">Project video</a> · <a href="https://www.youtube.com/watch?v=sdau2TpGC24">The AI plays a full game</a> · <a href="https://thibautplatet.com/en/projects/terrapolis.html">Case study</a></sub></p>
+<p><sub>▶ <a href="https://github.com/ThibPltt/Terrapolis/releases/latest">Download v1.0 (Android AR client)</a> · <a href="https://www.youtube.com/watch?v=86Q1wE_7Ecg">Project video</a> · <a href="https://www.youtube.com/watch?v=sdau2TpGC24">The AI plays a full game</a> · <a href="https://thibautplatet.com/en/projects/terrapolis.html">Case study</a></sub></p>
 
 
 <a href="https://github.com/ThibPltt/SOLAS"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-solas-dark.svg"><source media="(prefers-color-scheme: light)" srcset="assets/card-solas-light.svg"><img src="assets/card-solas-light.svg" width="100%" alt="SOLAS, 2024 to 2025: VR serious game about the solar system, Unity and C#, tested on Meta Quest 3."></picture></a>
